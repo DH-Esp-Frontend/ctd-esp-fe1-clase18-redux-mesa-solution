@@ -10,7 +10,7 @@ export default function App() {
     return (
         <QueryClientProvider client={client}>
             <div className="App">
-            {/*<TestRedux/>*/}
+            <TestRedux/>
                 <h1>Pokédex</h1>
                 <div id="bandejaDeEntrada">
                     <div style={{display: 'flex', flexDirection:'column', flexGrow: 1}}>
