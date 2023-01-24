@@ -2,7 +2,8 @@ import React, { useEffect} from "react";
 import { useQuery } from "react-query";
 import { getPokemon} from "../queries/pokemon.queries";
 import {Pokemon} from "../types/pokemon.types";
-
+import { showMessage } from "../redux/slice";
+import { useDispatch } from "react-redux";
 
 interface IVista {
     pokemonSeleccionado: Pokemon | null
@@ -16,9 +17,11 @@ interface IVista {
  */
 
 const VistaPokemon = ({pokemonSeleccionado}: IVista) => {
+        const dispatch = useDispatch();
     const {data: pokemon, isLoading, refetch} = useQuery("obtenerPokemon",() => getPokemon(pokemonSeleccionado?.name || ""),);
 
     useEffect(() => {   
+        dispatch(showMessage("Testeando el store"));
         if (pokemonSeleccionado) {
             refetch();
         }

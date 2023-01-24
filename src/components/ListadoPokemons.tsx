@@ -3,6 +3,8 @@ import ListadoPokemonsItem from "../components/ListadoPokemonsItem";
 import {buscarPokemons} from "../queries/pokemon.queries";
 import {Pokemon} from "../types/pokemon.types";
 import {extractPokemonId} from "../services/pokemon.services";
+
+
 import { useQuery } from "react-query";
 
 interface IListado {
@@ -23,13 +25,17 @@ interface IListado {
  * @author Digital House
  */
 const ListadoPokemons = ({name, seleccionarPokemon}: IListado) => {
-    
+  
+
     const {data: pokemons, isLoading, refetch} = useQuery("obtenerPokemons", () => buscarPokemons(name));
     useEffect(() => {
         if (name) {
+            
             refetch();
         }
     },[name, refetch])
+
+    
 
     if (isLoading) return <div>Cargando pokemons...</div>
 
