@@ -1,53 +1,39 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import ListadoPokemonsItem from "../components/ListadoPokemonsItem";
-import {buscarPokemons} from "../queries/pokemon.queries";
-import {Pokemon} from "../types/pokemon.types";
-import {extractPokemonId} from "../services/pokemon.services";
-
-
+import { buscarPokemons } from "../queries/pokemon.queries";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../redux/store";
 import { useQuery } from "react-query";
+import { allPokemons } from "../redux/slice";
 
-interface IListado {
-    name: string,
-    seleccionarPokemon: (pokemon: Pokemon) => void
-}
+/*
 
-/**
- * Visualiza una lista de pokemons
- *
- * Ej:
- * <pre>
- *     <ListadoPokemons />
- *
- * </pre>
- * @param {string} name nombre del pokemon a buscar
- * @param seleccionarPokemon una funcion que se ejecuta al hacer click en el pokemon y guarda en un estado el pokemon seleccionado
- * @author Digital House
- */
-const ListadoPokemons = ({name, seleccionarPokemon}: IListado) => {
-  
+*/
+const ListadoPokemons = () => {
+  const pokemonSearch = useSelector((state: RootState) => state.busqueda);
 
-    const {data: pokemons, isLoading, refetch} = useQuery("obtenerPokemons", () => buscarPokemons(name));
-    useEffect(() => {
-        if (name) {
-            
-            refetch();
-        }
-    },[name, refetch])
+  const dispatch = useDispatch();
 
-    
+  const {
+    data: pokemons,
+    isLoading,
+    refetch,
+  } = useQuery("obtenerPokemons", () => buscarPokemons(pokemonSearch));
+  /*
+  Utilizamos el useEffect y fetchPokemon para guardar en Redux todos 
+  los pokemons que nos devuelve useQuery
+  */
 
-    if (isLoading) return <div>Cargando pokemons...</div>
+  const fetchPokemon = () => pokemons && dispatch(allPokemons(pokemons));
 
-    return (
-        <div id="listadoCategorias">
-            {pokemons && pokemons.map((pokemon: Pokemon) => (
-                <ListadoPokemonsItem pokemon={pokemon}
-                                     seleccionarPokemon={seleccionarPokemon}
-                                     key={extractPokemonId(pokemon.url)}/>
-            ))}
-        </div>
-    );
+  useEffect(() => {
+    if (pokemonSearch) refetch();
+    fetchPokemon();
+  }, [pokemonSearch, pokemons]);
+
+  if (isLoading) return <div> Loading... </div>;
+
+  return <ListadoPokemonsItem />;
 }
 
 export default ListadoPokemons;

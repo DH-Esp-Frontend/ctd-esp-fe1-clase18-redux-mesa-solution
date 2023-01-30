@@ -39,8 +39,8 @@ body {
     padding: 4px 8px;
 }
 
-#listadoCategorias {
-    width: 35%;
+#listadoCategorias div{
+    width: 100%;
     flex-direction: column;
     overflow-y: scroll;
     border-right: 2px solid lightgrey;
@@ -49,13 +49,13 @@ body {
     max-height: 700px;
 }
 
-#listadoCategorias div {
+#listadoCategorias {
     cursor: pointer;
     padding: 0.5rem 1rem;
     border-bottom: 1px solid lightgrey;
 }
 
-#listadoCategorias div:hover {
+#listadoCategorias:hover {
     cursor: pointer;
     background-color: lightpink;
     border-radius: 12px;

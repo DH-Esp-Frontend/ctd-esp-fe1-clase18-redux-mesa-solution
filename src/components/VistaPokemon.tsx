@@ -1,42 +1,30 @@
 import React, { useEffect} from "react";
 import { useQuery } from "react-query";
 import { getPokemon} from "../queries/pokemon.queries";
-import {Pokemon} from "../types/pokemon.types";
-import { showMessage } from "../redux/slice";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-interface IVista {
-    pokemonSeleccionado: Pokemon | null
-}
 
-/**
- * Visualiza un pokemon seleccionado
- *
- * @param {string} pokemonSeleccionado pokemon almacenado con la funcion seleccionarPokemon
- * @author Digital House
- */
+const VistaPokemon = () => {
 
-const VistaPokemon = ({pokemonSeleccionado}: IVista) => {
-        const dispatch = useDispatch();
-    const {data: pokemon, isLoading, refetch} = useQuery("obtenerPokemon",() => getPokemon(pokemonSeleccionado?.name || ""),);
+  const pokemonSelec = useSelector((state: RootState) => state.busqueda);
+  const {data: pokemon, isLoading, refetch} = useQuery("obtenerPokemon",() => getPokemon(pokemonSelec || ""),);
 
-    useEffect(() => {   
-        dispatch(showMessage("Testeando el store"));
-        if (pokemonSeleccionado) {
-            refetch();
-        }
-    }, [refetch, pokemonSeleccionado])
+  useEffect(() => {
+    if (pokemonSelec) {
+      refetch();
+    }
+  }, [ pokemonSelec]);
 
-    if (!pokemonSeleccionado) return <></>;
-    if (isLoading) return <div>Cargando pokemon...</div>
+  if (isLoading) return <div>Loading</div>;
 
-    return pokemon ? (
-        <div className="vistaPokemon">
-            <h4>Pokemon: {pokemon.name}</h4>
-            <h5>#{pokemon.id}</h5>
-            <img src={pokemon.sprites.other.home.front_default} alt={pokemon.name}/>
-        </div>
-    ): null;
+  return pokemon ? (
+    <div className="vistaPokemon">
+      <h4>Pokemon: {pokemon.name}</h4>
+      <h5>#{pokemon.id}</h5>
+      <img src={pokemon.sprites.other.home.front_default} alt={pokemon.name} />
+    </div>
+  ) : null;
 }
 
 

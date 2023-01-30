@@ -1,6 +1,6 @@
 import "./styles.css";
 import BuscarPokemon from "./components/BuscarPokemon";
-import TestRedux from "./components/TestRedux";
+
 import { QueryClientProvider, QueryClient } from "react-query";
 
 export default function App() {
@@ -10,7 +10,7 @@ export default function App() {
     return (
         <QueryClientProvider client={client}>
             <div className="App">
-            <TestRedux/>
+         
                 <h1>Pokédex</h1>
                 <div id="bandejaDeEntrada">
                     <div style={{display: 'flex', flexDirection:'column', flexGrow: 1}}>

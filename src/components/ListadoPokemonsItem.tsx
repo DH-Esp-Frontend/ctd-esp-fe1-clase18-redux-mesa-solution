@@ -1,42 +1,42 @@
+
 import React from "react";
 import PropTypes from "prop-types";
-import {Pokemon} from "../types/pokemon.types";
-import {extractPokemonId} from "../services/pokemon.services";
+import { extractPokemonId } from "../services/pokemon.services";
+import { useDispatch, useSelector } from "react-redux";
+import { buscarPokemon } from "../redux/slice";
+import { RootState, AppDispatch } from "../redux/store";
 
 
+const ListadoPokemonsItem = () => {
+  const useAppDispatch: () => AppDispatch = useDispatch;
+  const dispatch = useAppDispatch();
 
-interface ListadoPokemonsItemProps {
-    pokemon: Pokemon,
-    seleccionarPokemon: (pokemon: Pokemon) => void
-}
+  const data = useSelector((state: RootState) => state.allPokemons[0]);
 
-/**
- * Visualiza una pokemon con su nombre y url
- *
- * Ej:
- * <pre>
- *     <ListadoPokemonsItem pokemon={pokemon}
- *                             seleccionarPokemon={(pokemon) => {}}/>
- *
- * </pre>
- *
- * @author Digital House
- * @param pokemon el pokemon a mostrar
- * @param seleccionarPokemon una funcion que se ejecuta al hacer click en el pokemon y guarda en un estado el pokemon seleccionado
- */
-const ListadoPokemonsItem = ({ pokemon, seleccionarPokemon }: ListadoPokemonsItemProps) =>
-    <div onClick={() => seleccionarPokemon(pokemon)}>
-        <strong>{pokemon.name}</strong>
-        <small> #{extractPokemonId(pokemon.url)}</small>
+
+  return (
+    <div>
+      {data &&
+        data?.map(function( pokemon: { name: string, url: string }){
+          return (
+            <div
+              id="listadoCategorias"
+              onClick={() => dispatch( buscarPokemon( pokemon?.name ) )}
+            >
+              <strong>{ pokemon?.name }</strong>
+              <small> #{ extractPokemonId( pokemon?.url ) }</small>
+            </div>
+          );
+})}
     </div>
-
+  );
+};
 
 ListadoPokemonsItem.propTypes = {
-    pokemon:
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            url: PropTypes.string.isRequired,
-        })
+  pokemon: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  }),
 };
 
 export default ListadoPokemonsItem;
