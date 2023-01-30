@@ -1,9 +1,9 @@
 import { configureStore} from "@reduxjs/toolkit";
-import messageSlice from "../redux/slice";
+import pokemonsSlice from "../redux/slice";
 
 
 const store = configureStore({
-  reducer:messageSlice
+  reducer:pokemonsSlice
 })
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

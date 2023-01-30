@@ -1,24 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface MessageState {
-  message: string;
+interface Pokemon {
+  name: string;
+  url: string;
 }
+export interface PokemonsState {
 
-const initialState: MessageState = {
-  message: "",
+  busqueda: string;
+  pokemon: Pokemon;
+  allPokemons: any[];
+}
+const initialState: PokemonsState = {
+ 
+  busqueda: "",
+  pokemon: { name: "", url: "" },
+  allPokemons: [],
 };
 
-export const messageSlice = createSlice({
-  name: "message",
+export const pokemonSlice = createSlice({
+  name: "pokemons",
   initialState,
   reducers: {
-    showMessage: (state, action: PayloadAction<string>) => {
-      state.message = action.payload;
+    buscarPokemon: (state, action: PayloadAction<string>) => {
+      state.busqueda = action.payload;
+    },
+    allPokemons: (state, action: PayloadAction<any>) => {
+      state.allPokemons.push(action.payload);
     },
   },
 });
 
-export const { showMessage } = messageSlice.actions;
+export const {  allPokemons, buscarPokemon } = pokemonSlice.actions;
 
-export default messageSlice.reducer;
+export default pokemonSlice.reducer;
