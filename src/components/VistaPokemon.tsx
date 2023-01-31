@@ -7,7 +7,7 @@ import { RootState } from "../redux/store";
 
 const VistaPokemon = () => {
 
-  const pokemonSelec = useSelector((state: RootState) => state.busqueda);
+  const pokemonSelec = useSelector((state: RootState) => state.search);
   const {data: pokemon, isLoading, refetch} = useQuery("obtenerPokemon",() => getPokemon(pokemonSelec || ""),);
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import { allPokemons } from "../redux/slice";
 
 */
 const ListadoPokemons = () => {
-  const pokemonSearch = useSelector((state: RootState) => state.busqueda);
+  const pokemonSearch = useSelector((state: RootState) => state.search);
 
   const dispatch = useDispatch();
 

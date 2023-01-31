@@ -7,13 +7,13 @@ interface Pokemon {
 }
 export interface PokemonsState {
 
-  busqueda: string;
+  search: string;
   pokemon: Pokemon;
   allPokemons: any[];
 }
 const initialState: PokemonsState = {
  
-  busqueda: "",
+  search: "",
   pokemon: { name: "", url: "" },
   allPokemons: [],
 };
@@ -22,8 +22,8 @@ export const pokemonSlice = createSlice({
   name: "pokemons",
   initialState,
   reducers: {
-    buscarPokemon: (state, action: PayloadAction<string>) => {
-      state.busqueda = action.payload;
+    searchAnPokemon: (state, action: PayloadAction<string>) => {
+      state.search = action.payload;
     },
     allPokemons: (state, action: PayloadAction<any>) => {
       state.allPokemons.push(action.payload);
@@ -31,6 +31,6 @@ export const pokemonSlice = createSlice({
   },
 });
 
-export const {  allPokemons, buscarPokemon } = pokemonSlice.actions;
+export const { allPokemons, searchAnPokemon } = pokemonSlice.actions;
 
 export default pokemonSlice.reducer;

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import ListadoPokemons from "./ListadoPokemons";
 import VistaPokemon from "./VistaPokemon";
 import { useDispatch } from "react-redux";
-import { buscarPokemon } from "../redux/slice";
+import { searchAnPokemon } from "../redux/slice";
 
 
 const BuscarPokemon: React.FC = () => {
@@ -12,7 +12,7 @@ const BuscarPokemon: React.FC = () => {
    
     const Submit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      dispatch( buscarPokemon( name ) );
+      dispatch(searchAnPokemon(name));
     };
 
     return (

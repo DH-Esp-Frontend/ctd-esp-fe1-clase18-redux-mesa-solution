@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { extractPokemonId } from "../services/pokemon.services";
 import { useDispatch, useSelector } from "react-redux";
-import { buscarPokemon } from "../redux/slice";
+import { searchAnPokemon } from "../redux/slice";
 import { RootState, AppDispatch } from "../redux/store";
 
 
@@ -21,10 +21,10 @@ const ListadoPokemonsItem = () => {
           return (
             <div
               id="listadoCategorias"
-              onClick={() => dispatch( buscarPokemon( pokemon?.name ) )}
+              onClick={() => dispatch(searchAnPokemon(pokemon?.name))}
             >
-              <strong>{ pokemon?.name }</strong>
-              <small> #{ extractPokemonId( pokemon?.url ) }</small>
+              <strong>{pokemon?.name}</strong>
+              <small> #{extractPokemonId(pokemon?.url)}</small>
             </div>
           );
 })}
