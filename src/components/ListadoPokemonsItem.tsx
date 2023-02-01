@@ -1,6 +1,3 @@
-
-import React from "react";
-import PropTypes from "prop-types";
 import { extractPokemonId } from "../services/pokemon.services";
 import { useDispatch, useSelector } from "react-redux";
 import { searchAnPokemon } from "../redux/slice";
@@ -32,11 +29,5 @@ const ListadoPokemonsItem = () => {
   );
 };
 
-ListadoPokemonsItem.propTypes = {
-  pokemon: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }),
-};
 
 export default ListadoPokemonsItem;
