@@ -6,9 +6,6 @@ import { RootState } from "../redux/store";
 import { useQuery } from "react-query";
 import { allPokemons } from "../redux/slice";
 
-/*
-
-*/
 const ListadoPokemons = () => {
   const pokemonSearch = useSelector((state: RootState) => state.search);
 
